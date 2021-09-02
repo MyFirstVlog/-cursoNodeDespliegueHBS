@@ -6,8 +6,11 @@ app.set('view engine', 'hbs');
 // middleware -> ejecucion antes de otra cosa, Servier contenido estatico
 app.use(express.static('public'))
 
-app.get('/',(req,res)=>{
-    res.render('home')
+app.get('/',(req,res)=>{ //controlador y enviar info al html
+    res.render('home', {
+        nombre: 'Alejandro Estrada',
+        titulo: 'Curso de Node Js'
+    })
 })
 app.get('/elements',(req,res)=>{
     res.sendFile(__dirname + '/public/generic.html')
