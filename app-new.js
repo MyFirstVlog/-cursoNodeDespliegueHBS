@@ -1,11 +1,18 @@
+require('dotenv').config()
+
 const express = require('express')
+const hbs = require('hbs');
+
 const app = express()
-const port = 8080
+const port = process.env.PORT
+
 
 app.set('view engine', 'hbs');
 // middleware -> ejecucion antes de otra cosa, Servier contenido estatico
-app.use(express.static('public'))
+//(Hnadlebars)
+hbs.registerPartials(__dirname + '/views/partials');
 
+app.use(express.static('public'))
 app.get('/',(req,res)=>{ //controlador y enviar info al html
     res.render('home', {
         nombre: 'Alejandro Estrada',
@@ -13,11 +20,17 @@ app.get('/',(req,res)=>{ //controlador y enviar info al html
     })
 })
 app.get('/elements',(req,res)=>{
-    res.sendFile(__dirname + '/public/generic.html')
+    res.render('elements', {
+        nombre: 'Alejandro Estrada',
+        titulo: 'Curso de Node Js'
+    })
 
 })
 app.get('/generic',(req,res)=>{
-    res.sendFile(__dirname + '/public/elements.html')
+    res.render('generic', {
+        nombre: 'Alejandro Estrada',
+        titulo: 'Curso de Node Js'
+    })
   
 })
 
